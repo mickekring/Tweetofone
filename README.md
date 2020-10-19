@@ -3,6 +3,9 @@
  
 ## Files
 
+### mainphone.py
+This is the actual Python script that runs on your Raspberry Pi. Check the imports at the top and make sure to pip install the libraries that you don't have.
+
 ### Credentials.yml
 This is where you put your Twitter secrets
 
