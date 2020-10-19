@@ -49,6 +49,7 @@ def ring_off():
 	GPIO.output(ring_pin, False)
 
 def ring():
+	global num_rings
 	if num_rings == 0:
 		for x in range(2):
 			GPIO.output(ring_pin, True)
@@ -138,7 +139,7 @@ def Main():
 			twtReadMentions() # Check Twitter for new mentions
 			twtTextToSpeech() # If mentions exists, sends to text-to-speech which creates mp3s of the mentions
 			
-			if GPIO.input(phone_switch_pin) == True and if newTweet > 0: # If phone is ON the hook AND there are new mentions
+			if GPIO.input(phone_switch_pin) == True and newTweet > 0: # If phone is ON the hook AND there are new mentions
 				print("\n>>> Waiting for phone to be picked up\n")
 				
 				while GPIO.input(phone_switch_pin) == True: # As long as you don't lift the phone off the hook
@@ -148,12 +149,13 @@ def Main():
 					time.sleep(2) # Wait before playing tweets
 					playMessages() # Plays the created mp3s
 					light_off()
+					global num_rings
 					num_rings = 0 # Resets ringing functions
 			
 			else:
 				pass
 			
-			time.sleep(10) # Wait for X seconds before running the loop again
+			time.sleep(30) # Wait for X seconds before running the loop again
 
 	finally: 
 		print("\n>>> Cleaning up GPIO pins...")
